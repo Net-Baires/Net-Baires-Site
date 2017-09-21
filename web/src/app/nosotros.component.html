@@ -1,0 +1,92 @@
+<div class="container">
+    <div class="section-header">
+        <h2 class="dark-text">¿QUIENES SOMOS?</h2>
+        <div class="colored-line"></div>
+        <!-- <div class="sub-heading">El equipo</div> -->
+    </div>
+    <div class="media">
+        <img class="img-thumbnail d-flex align-self-center mr-3" src="https://secure.meetupstatic.com/photos/event/9/6/6/c/600_460418508.jpeg" alt="Nosotros">
+        <div class="media-body">
+            <h5 class="mt-0">.Net de la ciudad de Buenos Aires</h5>
+            <p>
+                Somos una comunidad de desarrolladores .Net de la ciudad de Buenos Aires. 
+            </p>
+            <p class="mb-0">
+                La intención es generar un espacio donde compartir conocimiento, anécdotas y todo tipo de experiencias que puedan generar interés en cualquiera de nosotros. 
+                Están todos invitados a proponer charlas, workshop o cualquier actividad.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="section-header">
+        <h2 class="dark-text">ORGANIZADORES</h2>
+        <div class="colored-line"></div>
+        <!-- <div class="sub-heading">El equipo</div> -->
+    </div>
+    <div class="row team-member-wrap" *ngFor="let organizador of organizadores">
+        <div class="col-md-3 team-member-box" style="border-radius: 50%;">
+            <div class="team-member border-bottom-hover">
+                <div class="member-pic">
+                    <img src="{{organizador.photoURL}}" alt="{{organizador.name}}">
+                </div>
+
+                <div class="member-details" style="height: 326px;">
+                    <div class="member-details-inner">
+                        <h5 class="colored-text"> {{organizador.name}}</h5>
+                        <div class="small-text">Organizador </div>
+                        <ul class="social-icons">
+                            <li>
+                                <a target="_blank" href="{{organizador.linkedIn}}">
+                                    <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="{{organizador.twitter}}">
+                                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="section-header">
+        <h2 class="dark-text">COLABORADORES</h2>
+        <div class="colored-line"></div>
+        <!-- <div class="sub-heading">El equipo</div> -->
+    </div>
+    <div class="row team-member-wrap" *ngFor="let colaborador of colaboradores">
+        <div class="col-3 team-member-box" style="border-radius: 50%;">
+            <div class="team-member border-bottom-hover">
+                <div class="member-pic">
+                    <img src="{{colaborador.photoURL}}" alt="{{colaborador.name}}">
+                </div>
+
+                <div class="member-details" style="height: 326px;">
+                    <div class="member-details-inner">
+                        <h5 class="colored-text"> {{colaborador.name}}</h5>
+                        <div class="small-text">Colaborador</div>
+                        <ul class="social-icons">
+                            <li>
+                                <a target="_blank" href="{{colaborador.linkedIn}}">
+                                    <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="{{colaborador.twitter}}">
+                                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
