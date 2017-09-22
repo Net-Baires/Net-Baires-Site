@@ -17,15 +17,15 @@ const MEMBERS: Member[] = [
     { 
         id: 2, 
         name: 'Nicolás Bello C.',
-        twitter: '', 
-        linkedIn: '', 
+        twitter: 'https://twitter.com/nbellocam', 
+        linkedIn: 'https://www.linkedin.com/in/nbellocamilletti/', 
         photoURL: '/assets/img/team/nBello.jpg', 
         organizador: true, 
     },
     { 
         id: 3, 
         name: 'Jorge Bramajo',
-        twitter: '', 
+        twitter: 'https://twitter.com/jorbramajo', 
         linkedIn: 'https://www.linkedin.com/in/jorge-bramajo-04137751/', 
         photoURL: '/assets/img/team/jBramajo.jpeg', 
         organizador: false, 
@@ -33,7 +33,7 @@ const MEMBERS: Member[] = [
     { 
         id: 4, 
         name: 'Gabriel Barzola',
-        twitter: '', 
+        twitter: 'https://twitter.com/BarzolaGabriel', 
         linkedIn: 'https://www.linkedin.com/in/gbarzola/', 
         photoURL: '/assets/img/team/gBarzola.jpg', 
         organizador: false, 
@@ -41,8 +41,8 @@ const MEMBERS: Member[] = [
     { 
         id: 5, 
         name: 'Esteban Yañez',
-        twitter: '', 
-        linkedIn: '', 
+        twitter: 'https://twitter.com/Teban3010', 
+        linkedIn: 'https://www.linkedin.com/in/esteban-ya%C3%B1ez-13304a9a/', 
         photoURL: '/assets/img/team/eYanez.jpg', 
         organizador: false, 
     },

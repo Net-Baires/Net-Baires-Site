@@ -2,6 +2,45 @@
     background: #ffffff;
 }
 
+.section-header {
+    margin-top: 90px;
+    margin-bottom: 60px;
+    text-align: center;
+}
+
+.section-header h2 {
+    margin-bottom: 20px;
+    margin-top: 10px;
+    font-size: 2.4rem;
+    line-height: 3.125rem;
+}
+
+.dark-text {
+    color: #454545;
+}
+
+.colored-line {
+    margin: auto;
+}
+
+.colored-line-left, .colored-line-right, .colored-line {
+    background: #008ed6;
+}
+
+.colored-line-left, .colored-line-right, .colored-line, .white-line, .grey-line {
+    height: 2px;
+    width: 80px;
+    display: block;
+}
+
+.sub-heading {
+    margin-top: 20px;
+}
+
+.sub-heading, .single-service, .content-section, .testimonials-box {
+    font-weight: 300;
+}
+
 .clients {
     background: rgba(255, 255, 255, 0.9);
     border-bottom: 1px solid #dadfe3;
