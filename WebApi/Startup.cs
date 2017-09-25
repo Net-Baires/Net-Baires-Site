@@ -1,4 +1,5 @@
 ﻿using Data;
+using JsonApiDotNetCore.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Service;
 using Swashbuckle.AspNetCore.Swagger;
-using JsonApiDotNetCore.Extensions;
 
 namespace WebApi
 {
@@ -37,6 +37,8 @@ namespace WebApi
                     opt.Namespace = "api";
                 });
 
+            services.AddCors();
+
             services.AddMvc();
 
             // Register the Swagger generator, defining one or more Swagger documents
@@ -62,6 +64,12 @@ namespace WebApi
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
+
+            app.UseCors(builder =>
+                builder.AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowAnyOrigin()
+                );
 
             app.UseJsonApi();
         }
