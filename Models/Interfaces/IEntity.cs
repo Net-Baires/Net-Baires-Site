@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using JsonApiDotNetCore.Models;
 
 namespace Models
 {
-    public interface IEntity
+    public interface IEntity : IIdentifiable<int>
     {
-        int Id { get; set; }
     }
 }

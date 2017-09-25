@@ -18,7 +18,6 @@ namespace Data
             SetEventDetailEntry(modelBuilder);
             SetMeetupGroupEntry(modelBuilder);
             SetMemberEntry(modelBuilder);
-            SetMemberTypeEntry(modelBuilder);
             SetSponsorEntry(modelBuilder);
         }
 
@@ -54,14 +53,7 @@ namespace Data
             modelBuilder.Entity<Member>().Property(m => m.Twitter).HasMaxLength(255);
             modelBuilder.Entity<Member>().Property(m => m.LinkedIn).HasMaxLength(255);
             modelBuilder.Entity<Member>().Property(m => m.PhotoURL).HasMaxLength(255);
-            modelBuilder.Entity<Member>().HasOne(m => m.Type).WithMany();
             modelBuilder.Entity<Member>().Property(m => m.Type).HasColumnName("MemberTypeId");
-        }
-
-        private void SetMemberTypeEntry(ModelBuilder modelBuilder)
-        {
-            SetId(modelBuilder.Entity<MemberType>());
-            modelBuilder.Entity<MemberType>().Property(mt => mt.Name).HasMaxLength(100);
         }
 
         private void SetSponsorEntry(ModelBuilder modelBuilder)

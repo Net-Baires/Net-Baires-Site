@@ -1,58 +1,53 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using JsonApiDotNetCore.Controllers;
+using JsonApiDotNetCore.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Models;
 using Service;
-using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
-    public class SponsorsController : EntityController<Sponsor>
+    public class SponsorsController : JsonApiController<Sponsor>
     {
         ISponsorService sponsorService;
 
-        public SponsorsController(ISponsorService sponsorService) : base(sponsorService)
+        public SponsorsController(IJsonApiContext jsonApiContext,
+                                IResourceService<Sponsor, int> resourceService,
+                                ILoggerFactory loggerFactory,
+                                ISponsorService sponsorService) : base(jsonApiContext, resourceService, loggerFactory)
         {
             this.sponsorService = sponsorService;
         }
 
-        [HttpGet]
-        public override IQueryable<Sponsor> Get()
+        public override async Task<IActionResult> GetAsync()
         {
-            return base.Get();
+            return await base.GetAsync();
         }
 
-        [HttpGet("{id}")]
-        [ProducesResponseType(typeof(Sponsor), (int)HttpStatusCode.OK)]
-        public override Task<IActionResult> Get(int id)
+        public override async Task<IActionResult> GetAsync(int id)
         {
-            return base.Get(id);
+            return await base.GetAsync(id);
         }
 
-        [HttpPost]
         [Authorize]
-        [ProducesResponseType(typeof(Sponsor), (int)HttpStatusCode.OK)]
-        public override Task<IActionResult> Post([FromBody] Sponsor entity)
+        public override async Task<IActionResult> PostAsync([FromBody] Sponsor entity)
         {
-            return base.Post(entity);
+            return await base.PostAsync(entity);
         }
 
-        [HttpPut("{id}")]
         [Authorize]
-        [ProducesResponseType(typeof(Sponsor), (int)HttpStatusCode.OK)]
-        public override Task<IActionResult> Put(int id, [FromBody] Sponsor entity)
+        public override Task<IActionResult> PatchAsync(int id, [FromBody] Sponsor entity)
         {
-            return base.Put(id, entity);
+            return base.PatchAsync(id, entity);
         }
 
-        [HttpDelete("{id}")]
         [Authorize]
-        [ProducesResponseType(typeof(Sponsor), (int)HttpStatusCode.OK)]
-        public override Task<IActionResult> Delete(int id)
+        public override async Task<IActionResult> DeleteAsync(int id)
         {
-            return base.Delete(id);
+            return await base.DeleteAsync(id);
         }
     }
 }

@@ -1,59 +1,55 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using JsonApiDotNetCore.Controllers;
+using JsonApiDotNetCore.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Models;
 using Service;
 using System;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
-    public class EventsController : EntityController<Event>
+    public class EventsController : JsonApiController<Event>
     {
         IEventService eventService;
 
-        public EventsController(IEventService eventService) : base(eventService)
+        public EventsController(IJsonApiContext jsonApiContext,
+                                IResourceService<Event, int> resourceService,
+                                ILoggerFactory loggerFactory,
+                                IEventService eventService) : base(jsonApiContext, resourceService, loggerFactory)
         {
             this.eventService = eventService;
         }
 
-        [HttpGet]
-        public override IQueryable<Event> Get()
+        public override async Task<IActionResult> GetAsync()
         {
-            return base.Get();
+            return await base.GetAsync();
         }
 
-        [HttpGet("{id}")]
-        [ProducesResponseType(typeof(Event), (int)HttpStatusCode.OK)]
-        public override async Task<IActionResult> Get(int id)
+        public override async Task<IActionResult> GetAsync(int id)
         {
-            return await base.Get(id);
+            return await base.GetAsync(id);
         }
 
-        [HttpPost]
         [Authorize]
-        [ProducesResponseType(typeof(Event), (int)HttpStatusCode.OK)]
-        public override async Task<IActionResult> Post([FromBody] Event entity)
+        public override async Task<IActionResult> PostAsync([FromBody] Event entity)
         {
-            return await base.Post(entity);
+            return await base.PostAsync(entity);
         }
 
-        [HttpPut("{id}")]
         [Authorize]
-        [ProducesResponseType(typeof(Event), (int)HttpStatusCode.OK)]
-        public override async Task<IActionResult> Put(int id, [FromBody] Event entity)
+        public override Task<IActionResult> PatchAsync(int id, [FromBody] Event entity)
         {
-            return await base.Put(id, entity);
+            return base.PatchAsync(id, entity);
         }
 
-        [HttpDelete("{id}")]
         [Authorize]
-        [ProducesResponseType(typeof(Event), (int)HttpStatusCode.OK)]
-        public override async Task<IActionResult> Delete(int id)
+        public override async Task<IActionResult> DeleteAsync(int id)
         {
-            return await base.Delete(id);
+            return await base.DeleteAsync(id);
         }
 
         [HttpPost("[action]")]

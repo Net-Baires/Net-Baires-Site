@@ -1,9 +1,11 @@
-﻿namespace Models
-{
-    public class MemberType : IEntity
-    {
-        public int Id { get; set; }
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
-        public string Name { get; set; }
+namespace Models
+{
+    public enum MemberType
+    {
+        Organizador = 1,
+        Colaborador,
     }
 }

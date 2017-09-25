@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Service;
 using Swashbuckle.AspNetCore.Swagger;
+using JsonApiDotNetCore.Extensions;
 
 namespace WebApi
 {
@@ -22,11 +23,18 @@ namespace WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             var connection = @"Server=(localdb)\mssqllocaldb;Database=Api;Trusted_Connection=True;";
-            services.AddDbContext<ApiContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<ApiContext>(options => { options.UseSqlServer(connection); }, ServiceLifetime.Transient);
 
             services.AddTransient<IEventService, EventService>();
             services.AddTransient<IMemberService, MemberService>();
             services.AddTransient<ISponsorService, SponsorService>();
+
+            services.AddJsonApi<ApiContext>(
+                opt =>
+                {
+                    opt.DefaultPageSize = 10;
+                    opt.IncludeTotalRecordCount = true;
+                });
 
             services.AddMvc();
 
@@ -54,7 +62,7 @@ namespace WebApi
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
-            app.UseMvc();
+            app.UseJsonApi();
         }
     }
 }
