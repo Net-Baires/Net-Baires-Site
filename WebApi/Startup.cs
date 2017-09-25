@@ -34,6 +34,7 @@ namespace WebApi
                 {
                     opt.DefaultPageSize = 10;
                     opt.IncludeTotalRecordCount = true;
+                    opt.Namespace = "api";
                 });
 
             services.AddMvc();

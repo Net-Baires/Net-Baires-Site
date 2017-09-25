@@ -11,6 +11,8 @@ namespace Models
 
         public string Title { get; set; }
 
+        public long DateTicks { get; set; }
+
         public DateTime Date { get; set; }
 
         public string Color { get; set; }

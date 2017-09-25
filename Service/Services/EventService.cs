@@ -1,24 +1,21 @@
-﻿using System.Threading.Tasks;
-using Data;
-using Models;
+﻿using Data;
 using Microsoft.EntityFrameworkCore;
-using System.Net.Http;
-using System;
-using System.Net.Http.Headers;
-using System.Net;
-using System.Collections.Generic;
+using Models;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using Service.Models;
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace Service
 {
     public class EventService : EntityService<Event>, IEventService
     {
-        DbSet<MeetupGroup> meetupGroupSet;
-
         public EventService(ApiContext db) : base(db)
         {
-            meetupGroupSet = db.Set<MeetupGroup>();
         }
 
         public async Task Update()
@@ -32,7 +29,7 @@ namespace Service
 
             var events = new List<Event>();
 
-            foreach (var meetupGroup in meetupGroupSet)
+            foreach (var meetupGroup in db.MeetupGroups)
             {
                 var key = "";
                 var url = $"https://api.meetup.com/2/events?key={ key }&sign=true&photo-host=public&group_id={ meetupGroup.GroupId }&page=20&status=upcoming";
@@ -46,9 +43,9 @@ namespace Service
                         throw new UnauthorizedAccessException("Access Denied");
 
                     if (response.IsSuccessStatusCode)
-                        events.AddRange(await GetEvent(await response.Content.ReadAsStringAsync(), meetupGroup));
-
-                    throw new WebException(response.ReasonPhrase);
+                        events.AddRange(await GetEvent(JsonConvert.DeserializeObject<MeetupEventDTO>(await response.Content.ReadAsStringAsync()), meetupGroup));
+                    else
+                        throw new WebException(response.ReasonPhrase);
                 }
                 catch (Exception)
                 {
@@ -60,27 +57,26 @@ namespace Service
             await db.SaveChangesAsync();
         }
 
-        private async Task<IList<Event>> GetEvent(string json, MeetupGroup meetupGroup)
+        private async Task<IList<Event>> GetEvent(MeetupEventDTO meetupEvents, MeetupGroup meetupGroup)
         {
             var events = new List<Event>();
-            var jObject = JObject.Parse(json);
-            var results = (JArray)jObject["results"];
 
-            if (results == null)
+            if (meetupEvents == null)
                 return events;
 
-            foreach (var result in results)
+            foreach (var meetupEvent in meetupEvents.Results)
             {
-                var meetUpEventId = (int)result["id"];
-                var date = (DateTime)result["time"];
-
-                var _event = await Get().FirstOrDefaultAsync(e => e.MeetUpEventId == meetUpEventId);
+                var date = (new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).AddMilliseconds((double)(meetupEvent.Time)).AddHours(-3);
+                var _event = await Get().FirstOrDefaultAsync(e => e.MeetUpEventId == meetupEvent.Id);
 
                 Event serverEvent;
                 if (_event != null)
                 {
-                    if (_event.Date != date)
+                    if (_event.DateTicks != meetupEvent.Time)
+                    {
+                        _event.DateTicks = meetupEvent.Time;
                         _event.Date = date;
+                    }
 
                     serverEvent = AttachEntity(_event);
                 }
@@ -88,11 +84,12 @@ namespace Service
                 {
                     _event = new Event()
                     {
-                        MeetUpEventId = meetUpEventId,
-                        Title = (string)result["name"],
+                        MeetUpEventId = meetupEvent.Id,
+                        Title = meetupEvent.Name,
+                        DateTicks = meetupEvent.Time,
                         Date = date,
                         Color = meetupGroup.Color,
-                        Link = (string)result["event_url"],
+                        Link = meetupEvent.Event_url,
                         Group = meetupGroup,
                     };
 

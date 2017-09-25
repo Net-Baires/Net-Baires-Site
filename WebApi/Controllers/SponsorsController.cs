@@ -22,29 +22,34 @@ namespace WebApi.Controllers
             this.sponsorService = sponsorService;
         }
 
+        [HttpGet]
         public override async Task<IActionResult> GetAsync()
         {
             return await base.GetAsync();
         }
 
+        [HttpGet("{id}")]
         public override async Task<IActionResult> GetAsync(int id)
         {
             return await base.GetAsync(id);
         }
 
         [Authorize]
+        [HttpPost]
         public override async Task<IActionResult> PostAsync([FromBody] Sponsor entity)
         {
             return await base.PostAsync(entity);
         }
 
         [Authorize]
+        [HttpPatch("{id}")]
         public override Task<IActionResult> PatchAsync(int id, [FromBody] Sponsor entity)
         {
             return base.PatchAsync(id, entity);
         }
 
         [Authorize]
+        [HttpDelete("{id}")]
         public override async Task<IActionResult> DeleteAsync(int id)
         {
             return await base.DeleteAsync(id);

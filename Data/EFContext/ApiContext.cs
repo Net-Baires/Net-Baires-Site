@@ -10,6 +10,12 @@ namespace Data
             : base(options)
         { }
 
+        public DbSet<Event> Events { get; set; }
+        public DbSet<EventDetail> EventDetails { get; set; }
+        public DbSet<MeetupGroup> MeetupGroups { get; set; }
+        public DbSet<Member> Members { get; set; }
+        public DbSet<Sponsor> Sponsors { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -27,7 +33,7 @@ namespace Data
             modelBuilder.Entity<Event>().Property(e => e.Title).HasMaxLength(255);
             modelBuilder.Entity<Event>().Property(e => e.Color).HasMaxLength(50);
             modelBuilder.Entity<Event>().Property(e => e.Link).HasMaxLength(255);
-            modelBuilder.Entity<Event>().Property(e => e.Group).HasColumnName("MeetupGroupId");
+            modelBuilder.Entity<Event>().HasOne(e => e.Group).WithMany(mg => mg.Events);
         }
 
         private void SetEventDetailEntry(ModelBuilder modelBuilder)
@@ -75,6 +81,7 @@ namespace Data
         {
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Id).HasColumnName($"{tableName}Id").ValueGeneratedOnAdd();
+            entity.ToTable(tableName);
         }
     }
 }
