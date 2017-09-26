@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Sponsor } from './sponsor';
-import { SponsorService } from './sponsor.service';
+import { Sponsor } from '../models/sponsor';
+import { SponsorService } from '../services/sponsor.service';
 
 @Component({
   selector: 'sponsor',
@@ -18,6 +18,6 @@ export class SponsorComponent {
     }
     
     getSponsors(): void {
-        this.sponsorService.getSponsors().then(sponsors => this.sponsors = sponsors);
+        this.sponsorService.get().then(sponsors => this.sponsors = sponsors);
     }
 }

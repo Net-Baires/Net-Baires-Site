@@ -15,6 +15,10 @@
     line-height: 3.125rem;
 }
 
+.nosotros-img:hover{
+    width: 100% important;
+}
+
 .dark-text {
     color: #454545;
 }
@@ -48,7 +52,7 @@
 .team-member-wrap .team-member-box {
     float: none;
     display: inline-block;
-    margin-right: -4px;
+    margin: 0 10px; 
     vertical-align: top;
 }
 
@@ -67,6 +71,7 @@
     border: 1px solid #e4e7e7;
     border-bottom: 4px solid #e4e7e7;
     height: 250px;
+    width: 250px;
 }
 
 .team-member:hover .member-details {

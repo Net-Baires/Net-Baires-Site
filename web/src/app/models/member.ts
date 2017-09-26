@@ -1,4 +1,6 @@
-export class Member {
+import { IEntity } from '../models/ientity';
+
+export class Member implements IEntity {
     id: number;
     name: string;
     twitter: string;

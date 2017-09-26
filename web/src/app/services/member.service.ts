@@ -3,7 +3,7 @@ import { Headers, Http } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import { Member } from './member';
+import { Member } from '../models/member';
 
 const MEMBERS: Member[] = [
     { 

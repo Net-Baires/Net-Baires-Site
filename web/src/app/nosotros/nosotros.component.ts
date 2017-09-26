@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Member } from './member';
-import { MemberService } from './member.service';
+import { Member } from '../models/member';
+import { MemberService } from '../services/member.service';
 
 @Component({
   selector: 'nosotros',
   templateUrl: './nosotros.component.html',
-  styleUrls: [ 
-    //   "../assets/css/bootstrap.min.css",
-    //   "../assets/css/bootstrap-grid.min.css",
-      './nosotros.component.css' ],
+  styleUrls: [ './nosotros.component.css' ],
 })
 export class NosotrosComponent {
     organizadores: Member[];

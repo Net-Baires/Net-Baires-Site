@@ -6,11 +6,11 @@ import { HttpModule }    from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home.component';
-import { NosotrosComponent } from './nosotros.component';
-import { SponsorComponent } from './sponsor.component';
-import { SponsorService } from './sponsor.service';
-import { MemberService } from './member.service';
+import { HomeComponent } from './home/home.component';
+import { NosotrosComponent } from './nosotros/nosotros.component';
+import { SponsorComponent } from './sponsor/sponsor.component';
+import { SponsorService } from './services/sponsor.service';
+import { MemberService } from './services/member.service';
 
 @NgModule({
   declarations: [
