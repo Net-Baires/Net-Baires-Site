@@ -4,7 +4,7 @@ import { Member } from '../models/member';
 import { MemberService } from '../services/member.service';
 
 @Component({
-  selector: 'nosotros',
+  selector: 'nb-nosotros',
   templateUrl: './nosotros.component.html',
   styleUrls: [ './nosotros.component.css' ],
 })
@@ -15,15 +15,13 @@ export class NosotrosComponent {
     constructor(private memberService: MemberService) { }
     
     ngOnInit(): void {
-        this.getOrganizadores();
-        this.getColaboradores();
+        this.getMembers();
     }
     
-    getOrganizadores(): void {
-        this.memberService.getFilterMembers(true).then(members => this.organizadores = members);
-    }
-
-    getColaboradores(): void {
-        this.memberService.getFilterMembers(false).then(members => this.colaboradores = members);
+    getMembers(): void {
+        this.memberService.get().subscribe(members => {
+            this.organizadores = members.filter(member => member.type == 1);
+            this.colaboradores = members.filter(member => member.type == 2);
+        });
     }
 }

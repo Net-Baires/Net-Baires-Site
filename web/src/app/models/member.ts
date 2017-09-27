@@ -6,5 +6,5 @@ export class Member implements IEntity {
     twitter: string;
     linkedIn: string;
     photoURL: string;
-    organizador: boolean;
+    type: number;
 }

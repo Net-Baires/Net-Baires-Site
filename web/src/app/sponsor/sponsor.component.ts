@@ -4,7 +4,7 @@ import { Sponsor } from '../models/sponsor';
 import { SponsorService } from '../services/sponsor.service';
 
 @Component({
-  selector: 'sponsor',
+  selector: 'nb-sponsor',
   templateUrl: './sponsor.component.html',
   styleUrls: [ './sponsor.component.css' ]
 })
@@ -18,6 +18,6 @@ export class SponsorComponent {
     }
     
     getSponsors(): void {
-        this.sponsorService.get().then(sponsors => this.sponsors = sponsors);
+        this.sponsorService.get().subscribe(sponsors => this.sponsors = sponsors);
     }
 }

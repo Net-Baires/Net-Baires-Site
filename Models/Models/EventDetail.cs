@@ -1,12 +1,15 @@
-﻿using System;
+﻿using JsonApiDotNetCore.Models;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Models
 {
     public class EventDetail : IEntity
     {
+        [Attr("Id")]
         public int Id { get; set; }
 
+        [Attr("Detail")]
         public string Detail { get; set; }
 
         [NotMapped]

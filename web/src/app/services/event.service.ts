@@ -4,11 +4,11 @@ import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { BaseService } from './base.service';
-import { Member } from '../models/member';
+import { Event } from '../models/event';
 
 @Injectable()
-export class MemberService extends BaseService<Member> {
-    private sponsorsUrl = '/api/members';  // URL to web api
+export class EventService extends BaseService<Event> {
+    private sponsorsUrl = '/api/events';  // URL to web api
 
   constructor(http: Http) { 
       super(http); 

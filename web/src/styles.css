@@ -2,6 +2,8 @@
 
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "~font-awesome/css/font-awesome.css";
+@import '~angular-calendar/dist/css/angular-calendar.css';
+
 
 html {
     position: relative;

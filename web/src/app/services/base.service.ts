@@ -1,7 +1,7 @@
 import { Injectable }    from '@angular/core';
 import { Headers, Http } from '@angular/http';
 
-import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs/Observable';
 
 import { Config } from '../config';
 import { IEntity } from '../models/ientity';
@@ -13,19 +13,15 @@ export class BaseService<T extends IEntity> {
 
   constructor(protected http: Http) { }
 
-    get(): Promise<T[]> {
+    get(): Observable<T[]> {
         return this.http.get(this.url, { headers: this.headers })
-                .toPromise()
-                .then(response => response.json() as T[])
-                .catch(this.handleError);
+            .map( results  => results.json());
     }
 
-    getHero(id: number): Promise<T> {
+    getOne(id: number): Observable<T> {
         const url = `${this.url}/${id}`;
         return this.http.get(url, { headers: this.headers })
-          .toPromise()
-          .then(response => response.json().data as T)
-          .catch(this.handleError);
+            .map( results  => results.json());
       }
     
     //   delete(id: number): Promise<void> {
