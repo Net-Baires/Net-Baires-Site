@@ -8,10 +8,10 @@ import { Event } from '../models/event';
 
 @Injectable()
 export class EventService extends BaseService<Event> {
-    private sponsorsUrl = '/api/events';  // URL to web api
+    private eventUrl = '/api/events';  // URL to web api
 
   constructor(http: Http) { 
       super(http); 
-        this.url = this.url + this.sponsorsUrl;
+        this.url = this.url + this.eventUrl;
     }
 }

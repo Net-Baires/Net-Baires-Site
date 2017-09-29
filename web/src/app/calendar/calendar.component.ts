@@ -57,7 +57,25 @@ export class CalendarComponent implements OnInit {
   }
 
   fetchEvents(): void {
-    this.events$ = this.eventService.get().map( results  => {
+    var minDate = new Date(this.viewDate);
+    var maxDate = new Date(this.viewDate);
+    minDate.setDate(1);
+    maxDate.setDate(1);
+    if(this.viewDate.getMonth() == 0){
+      minDate.setMonth(11);
+      minDate.setFullYear(minDate.getFullYear() - 1);
+      maxDate.setMonth(maxDate.getMonth() + 1);
+    } else if(this.viewDate.getMonth() == 11){
+      minDate.setMonth(minDate.getMonth() - 1);
+      maxDate.setMonth(0);
+      maxDate.setFullYear(maxDate.getFullYear() + 1);
+    } else {
+      minDate.setMonth(minDate.getMonth() - 1);
+      maxDate.setMonth(maxDate.getMonth() + 1);
+    }
+
+    var filter = 'filter[Date]=gt:'+ minDate.toDateString() +'&filter[Date]=le:' + maxDate.toDateString();
+    this.events$ = this.eventService.getFilter(filter).map( results  => {
       return results.map((event: Event) => {
         return {
           title: event.title,
@@ -69,21 +87,6 @@ export class CalendarComponent implements OnInit {
         };
       });
     });
-
-    // this.events$ = this.http
-    //   .get('http://localhost:60850/api/events', {headers: this.headers})
-    //   .map( results  => {
-    //     return results.json().map((event: Event) => {
-    //       return {
-    //         title: event.title,
-    //         start: new Date(event.dateTicks),
-    //         color: colors.yellow,
-    //         meta: {
-    //           event
-    //         }
-    //       };
-    //     });
-    // });
   }
 
   dayClicked({

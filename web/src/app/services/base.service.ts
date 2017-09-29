@@ -22,7 +22,12 @@ export class BaseService<T extends IEntity> {
         const url = `${this.url}/${id}`;
         return this.http.get(url, { headers: this.headers })
             .map( results  => results.json());
-      }
+    }
+    
+    getFilter(filter: string): Observable<T[]> {
+        return this.http.get(this.url + '?' + filter, { headers: this.headers })
+            .map( results  => results.json());
+    }
     
     //   delete(id: number): Promise<void> {
     //     const url = `${this.url}/${id}`;
