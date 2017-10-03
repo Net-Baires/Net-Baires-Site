@@ -27,10 +27,10 @@ namespace Models
         [Attr("Link")]
         public string Link { get; set; }
 
-        [Attr("Detail")]
+        [HasOne("Detail")]
         public EventDetail Detail { get; set; }
 
-        [Attr("Group")]
+        [HasOne("Group")]
         public MeetupGroup Group { get; set; }
 
         [NotMapped]

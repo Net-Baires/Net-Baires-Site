@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { Headers, Http, URLSearchParams } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { CalendarEvent } from 'angular-calendar';
+import { CalendarEvent, CalendarEventTitleFormatter } from 'angular-calendar';
 import {
   isSameMonth,
   isSameDay,
@@ -16,8 +16,11 @@ import {
 import { Observable } from 'rxjs/Observable';
 //import { colors } from '../demo-utils/colors';
 
+import { CustomEventTitleFormatter } from './custom-event-title-formatter.provider';
+
 import { Event } from '../models/event'
 import { EventService } from '../services/event.service'
+import { CalendarColor } from './calendar-color'
 
 const colors: any = {
   red: {
@@ -37,7 +40,11 @@ const colors: any = {
 @Component({
   selector: 'cl-calendar',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: 'calendar.component.html'
+  templateUrl: 'calendar.component.html',
+  providers: [{
+    provide: CalendarEventTitleFormatter,
+    useClass: CustomEventTitleFormatter
+  }]
 })
 export class CalendarComponent implements OnInit {
   protected headers = new Headers({'content-type': 'application/json'});
@@ -50,7 +57,7 @@ export class CalendarComponent implements OnInit {
   events$: Observable<Array<CalendarEvent<{ event: Event }>>>;
   activeDayIsOpen: boolean = false;
 
-  constructor(private http: Http, private eventService: EventService) { }
+  constructor(private http: Http, private eventService: EventService, private calendarColor: CalendarColor) { }
 
   ngOnInit(): void {
     this.fetchEvents();
@@ -74,13 +81,14 @@ export class CalendarComponent implements OnInit {
       maxDate.setMonth(maxDate.getMonth() + 1);
     }
 
-    var filter = 'filter[Date]=gt:'+ minDate.toDateString() +'&filter[Date]=le:' + maxDate.toDateString();
+    var filter = 'filter[Date]=gt:'+ minDate.toDateString() +'&filter[Date]=le:' + maxDate.toDateString() + '&include=group';
     this.events$ = this.eventService.getFilter(filter).map( results  => {
+      console.log(results);
       return results.map((event: Event) => {
         return {
           title: event.title,
           start: new Date(event.dateTicks),
-          color: colors.yellow,
+          color: this.calendarColor.getColor(event.color),
           meta: {
             event
           }

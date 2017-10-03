@@ -25,7 +25,7 @@ namespace Models
         [Attr("Color")]
         public string Color { get; set; }
 
-        [Attr("Events")]
+        [HasMany("Events")]
         public IList<Event> Events { get; set; }
 
         [NotMapped]

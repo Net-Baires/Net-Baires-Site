@@ -31,7 +31,7 @@ namespace Service
 
             foreach (var meetupGroup in db.MeetupGroups)
             {
-                var key = "";
+                var key = "6f16124d6374382c4b3c5b255d467a";
                 var url = $"https://api.meetup.com/2/events?key={ key }&sign=true&photo-host=public&group_id={ meetupGroup.GroupId }&page=20&status=upcoming";
 
                 try

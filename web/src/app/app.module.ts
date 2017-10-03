@@ -21,6 +21,8 @@ import { SponsorService } from './services/sponsor.service';
 import { MemberService } from './services/member.service';
 import { EventService } from './services/event.service';
 
+import { CalendarColor } from './calendar/calendar-color'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +47,7 @@ import { EventService } from './services/event.service';
     SponsorService,
     MemberService,
     EventService,
+    CalendarColor,
   ],
   bootstrap: [AppComponent]
 })
