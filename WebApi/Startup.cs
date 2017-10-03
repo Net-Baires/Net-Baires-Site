@@ -1,13 +1,18 @@
 ﻿using Data;
 using JsonApiDotNetCore.Extensions;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Models;
 using Service;
 using Swashbuckle.AspNetCore.Swagger;
+using System.Threading.Tasks;
 
 namespace WebApi
 {
@@ -25,7 +30,7 @@ namespace WebApi
         {
             services.Configure<KeySettingsModel>(Configuration.GetSection("KeySettings"));
 
-            services.AddDbContext<ApiContext>(options => { options.UseSqlServer(Configuration["ConnectionString"]); }, ServiceLifetime.Transient);
+            ConfigureDataBase(services);
 
             services.AddTransient<IEventService, EventService>();
             services.AddTransient<IMemberService, MemberService>();
@@ -38,7 +43,7 @@ namespace WebApi
                     opt.IncludeTotalRecordCount = true;
                     opt.Namespace = "api";
                 });
-            
+
             // Register the Swagger generator, defining one or more Swagger documents
             services.AddSwaggerGen(c =>
             {
@@ -47,9 +52,27 @@ namespace WebApi
 
             services.AddOptions();
 
+            //services.AddIdentity<IdentityUser, IdentityRole>()
+            //.AddEntityFrameworkStores<SecurityContext>().AddDefaultTokenProviders();
+
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //        .AddJwtBearer(options => {
+            //            options.Audience = "http://localhost:5001/";
+            //            options.Authority = "http://localhost:5000/";
+            //        });
+
             services.AddCors();
 
             services.AddMvc();
+        }
+
+        public virtual void ConfigureDataBase(IServiceCollection services)
+        {
+            // Add framework services.
+            services.AddDbContext<ApiContext>(options => { options.UseSqlServer(Configuration.GetConnectionString("ApiConnection")); }, ServiceLifetime.Transient);
+
+            //services.AddDbContext<SecurityContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("SecurityConnection"), sqlOptions => sqlOptions.MigrationsAssembly("TokenAuthWebApiCore.Server")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,6 +82,8 @@ namespace WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            //app.UseAuthentication();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
