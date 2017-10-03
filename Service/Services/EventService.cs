@@ -1,5 +1,6 @@
 ﻿using Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Models;
 using Newtonsoft.Json;
 using Service.Models;
@@ -14,8 +15,11 @@ namespace Service
 {
     public class EventService : EntityService<Event>, IEventService
     {
-        public EventService(ApiContext db) : base(db)
+        IOptions<KeySettingsModel> settings;
+
+        public EventService(ApiContext db, IOptions<KeySettingsModel> settings) : base(db)
         {
+            this.settings = settings;
         }
 
         public async Task Update()
@@ -31,8 +35,7 @@ namespace Service
 
             foreach (var meetupGroup in db.MeetupGroups)
             {
-                var key = "6f16124d6374382c4b3c5b255d467a";
-                var url = $"https://api.meetup.com/2/events?key={ key }&sign=true&photo-host=public&group_id={ meetupGroup.GroupId }&page=20&status=upcoming";
+                var url = $"https://api.meetup.com/2/events?key={ settings.Value.MeetupApiKey }&sign=true&photo-host=public&group_id={ meetupGroup.GroupId }&page=20&status=upcoming";
 
                 try
                 {
