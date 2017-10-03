@@ -20,22 +20,6 @@ import { CustomEventTitleFormatter } from './custom-event-title-formatter.provid
 
 import { Event } from '../models/event'
 import { EventService } from '../services/event.service'
-import { CalendarColor } from './calendar-color'
-
-const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3'
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF'
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA'
-  }
-};
 
 @Component({
   selector: 'cl-calendar',
@@ -57,7 +41,7 @@ export class CalendarComponent implements OnInit {
   events$: Observable<Array<CalendarEvent<{ event: Event }>>>;
   activeDayIsOpen: boolean = false;
 
-  constructor(private http: Http, private eventService: EventService, private calendarColor: CalendarColor) { }
+  constructor(private http: Http, private eventService: EventService) { }
 
   ngOnInit(): void {
     this.fetchEvents();
@@ -81,14 +65,14 @@ export class CalendarComponent implements OnInit {
       maxDate.setMonth(maxDate.getMonth() + 1);
     }
 
-    var filter = 'filter[Date]=gt:'+ minDate.toDateString() +'&filter[Date]=le:' + maxDate.toDateString() + '&include=group';
+    var filter = 'filter[Date]=gt:'+ minDate.toDateString() +'&filter[Date]=le:' + maxDate.toDateString();
     this.events$ = this.eventService.getFilter(filter).map( results  => {
       console.log(results);
       return results.map((event: Event) => {
         return {
           title: event.title,
           start: new Date(event.dateTicks),
-          color: this.calendarColor.getColor(event.color),
+          color: this.getColor(event.color),
           meta: {
             event
           }
@@ -122,5 +106,40 @@ export class CalendarComponent implements OnInit {
       calendarEvent.meta.event.link,
       '_blank'
     );
+  }
+
+  getColor(color : string) : any {
+    switch(color.toLowerCase()){
+      case 'red':
+        return {
+          primary: '#ad2121',
+          secondary: '#FAE3E3'
+        };
+      case 'blue':
+        return {
+          primary: '#1e90ff',
+          secondary: '#D1E8FF'
+        };
+      case 'yellow':
+        return {
+          primary: '#e3bc08',
+          secondary: '#FDF1BA'
+        };
+      case 'green':
+        return {
+          primary: '#008000',
+          secondary: '#FDF1BA'
+        };
+      case 'orange':
+        return {
+          primary: '#ffa500',
+          secondary: '#FDF1BA'
+        };
+      default:
+        return {
+          primary: '#e3bc08',
+          secondary: '#FDF1BA'
+        };
+    }
   }
 }
