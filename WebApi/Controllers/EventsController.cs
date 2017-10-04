@@ -36,21 +36,21 @@ namespace WebApi.Controllers
             return await base.GetAsync(id);
         }
 
-        [Authorize]
+        [Authorize("admin")]
         [HttpPost]
         public override async Task<IActionResult> PostAsync([FromBody] Event entity)
         {
             return await base.PostAsync(entity);
         }
 
-        [Authorize]
+        [Authorize("admin")]
         [HttpPatch("{id}")]
         public override Task<IActionResult> PatchAsync(int id, [FromBody] Event entity)
         {
             return base.PatchAsync(id, entity);
         }
 
-        [Authorize]
+        [Authorize("admin")]
         [HttpDelete("{id}")]
         public override async Task<IActionResult> DeleteAsync(int id)
         {
@@ -58,7 +58,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("[action]")]
-        //[Authorize]
+        //[Authorize("admin")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<IActionResult> Update()
         {

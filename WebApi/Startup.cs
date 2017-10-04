@@ -1,18 +1,15 @@
 ﻿using Data;
 using JsonApiDotNetCore.Extensions;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using Models;
 using Service;
 using Swashbuckle.AspNetCore.Swagger;
-using System.Threading.Tasks;
+using WebApi.Filters;
 
 namespace WebApi
 {
@@ -31,10 +28,8 @@ namespace WebApi
             services.Configure<KeySettingsModel>(Configuration.GetSection("KeySettings"));
 
             ConfigureDataBase(services);
-
-            services.AddTransient<IEventService, EventService>();
-            services.AddTransient<IMemberService, MemberService>();
-            services.AddTransient<ISponsorService, SponsorService>();
+            ConfigureDependencies(services);
+            ConfigureAuthentication(services);
 
             services.AddJsonApi<ApiContext>(
                 opt =>
@@ -51,28 +46,41 @@ namespace WebApi
             });
 
             services.AddOptions();
-
-            //services.AddIdentity<IdentityUser, IdentityRole>()
-            //.AddEntityFrameworkStores<SecurityContext>().AddDefaultTokenProviders();
-
-            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            //        .AddJwtBearer(options => {
-            //            options.Audience = "http://localhost:5001/";
-            //            options.Authority = "http://localhost:5000/";
-            //        });
-
             services.AddCors();
-
             services.AddMvc();
         }
 
-        public virtual void ConfigureDataBase(IServiceCollection services)
+        private void ConfigureDataBase(IServiceCollection services)
         {
             // Add framework services.
             services.AddDbContext<ApiContext>(options => { options.UseSqlServer(Configuration.GetConnectionString("ApiConnection")); }, ServiceLifetime.Transient);
+        }
 
-            //services.AddDbContext<SecurityContext>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("SecurityConnection"), sqlOptions => sqlOptions.MigrationsAssembly("TokenAuthWebApiCore.Server")));
+        private void ConfigureDependencies(IServiceCollection services)
+        {
+            services.AddTransient<IEventService, EventService>();
+            services.AddTransient<IMemberService, MemberService>();
+            services.AddTransient<ISponsorService, SponsorService>();
+        }
+
+        private void ConfigureAuthentication(IServiceCollection services)
+        {
+            string domain = $"https://{Configuration["Auth0:Domain"]}/";
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = domain;
+                options.Audience = Configuration["Auth0:ApiIdentifier"];
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("admin", policy => policy.Requirements.Add(new HasScopeRequirement("admin", domain)));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -83,16 +91,15 @@ namespace WebApi
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseAuthentication();
-
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
-
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
+
+            app.UseAuthentication();
 
             app.UseCors(builder =>
                 builder.AllowAnyHeader()

@@ -1,5 +1,6 @@
 import { Injectable }    from '@angular/core';
 import { Headers, Http } from '@angular/http';
+import { AuthHttp } from 'angular2-jwt';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -11,10 +12,15 @@ export class BaseService<T extends IEntity> {
     protected headers = new Headers({'content-type': 'application/json'});
     protected url : string = Config.BASE_API_URL;  // URL to web api
 
-  constructor(protected http: Http) { }
+  constructor(protected http: Http, protected authHttp: AuthHttp) { }
 
     get(): Observable<T[]> {
         return this.http.get(this.url, { headers: this.headers })
+            .map( results  => results.json());
+    }
+
+    getAuthorized(): Observable<T[]> {
+        return this.authHttp.get(this.url, { headers: this.headers })
             .map( results  => results.json());
     }
 
@@ -24,8 +30,19 @@ export class BaseService<T extends IEntity> {
             .map( results  => results.json());
     }
     
+    getOneAuthorized(id: number): Observable<T> {
+        const url = `${this.url}/${id}`;
+        return this.authHttp.get(url, { headers: this.headers })
+            .map( results  => results.json());
+    }
+
     getFilter(filter: string): Observable<T[]> {
         return this.http.get(this.url + '?' + filter, { headers: this.headers })
+            .map( results  => results.json());
+    }
+    
+    getFilterAuthorized(filter: string): Observable<T[]> {
+        return this.authHttp.get(this.url + '?' + filter, { headers: this.headers })
             .map( results  => results.json());
     }
     

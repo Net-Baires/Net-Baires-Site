@@ -1,5 +1,6 @@
 import { Injectable }    from '@angular/core';
 import { Headers, Http } from '@angular/http';
+import { AuthHttp } from 'angular2-jwt';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -10,8 +11,8 @@ import { Member } from '../models/member';
 export class MemberService extends BaseService<Member> {
     private sponsorsUrl = '/api/members';  // URL to web api
 
-  constructor(http: Http) { 
-      super(http); 
+  constructor(http: Http, authHttp: AuthHttp) { 
+      super(http, authHttp); 
         this.url = this.url + this.sponsorsUrl;
     }
 }
