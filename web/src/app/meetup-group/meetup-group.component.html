@@ -1,4 +1,9 @@
-<h2>meetupGroups</h2>
+<div class="container">
+    <h2 class="float-left">Meetup Groups</h2>
+    <button type="button" (click)="add()" class="btn btn-primary float-right">
+        <i class="fa fa-plus-circle" aria-hidden="true"></i> Add
+    </button>
+</div>
 <div class="table-responsive">
 <table class="table table-sm">
     <thead>
@@ -7,7 +12,6 @@
         <th>GroupId</th>
         <th>Name</th>
         <th>UrlName</th>
-        <th>PhotoURL</th>
         <th>Color</th>
         <th></th>
       </tr>
@@ -18,14 +22,13 @@
         <td>{{meetupGroup.groupId}}</td>
         <td>{{meetupGroup.name}}</td>
         <td>{{meetupGroup.urlName}}</td>
-        <td>{{meetupGroup.photoURL}}</td>
         <td>{{meetupGroup.color}}</td>
         <td>
             <div class="float-right">
-                <a routerLink="/meetupGroupdetail/{{meetupGroup.id}}">
+                <a routerLink="/meetupgroupdetail/{{meetupGroup.id}}">
                     <i class="fa fa-info-circle" aria-hidden="true"></i>
                 </a>
-                <a routerLink="/meetupGroupedit/{{meetupGroup.id}}">
+                <a routerLink="/meetupgroupedit/{{meetupGroup.id}}">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                 </a>
                 <a>

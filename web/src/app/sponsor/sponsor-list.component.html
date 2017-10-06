@@ -1,5 +1,5 @@
 <div class="container">
-    <h2 class="float-left">Members</h2>
+    <h2 class="float-left">Sponsors</h2>
     <button type="button" (click)="add()" class="btn btn-primary float-right">
         <i class="fa fa-plus-circle" aria-hidden="true"></i> Add
     </button>
@@ -14,15 +14,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let member of members">
-        <th scope="row">{{member.id}}</th>
-        <td>{{member.name}}</td>
+      <tr *ngFor="let sponsor of sponsors">
+        <th scope="row">{{sponsor.id}}</th>
+        <td>{{sponsor.name}}</td>
         <td>
             <div class="float-right">
-                <a routerLink="/memberdetail/{{member.id}}">
+                <a routerLink="/sponsordetail/{{sponsor.id}}">
                     <i class="fa fa-info-circle" aria-hidden="true"></i>
                 </a>
-                <a routerLink="/memberedit/{{member.id}}">
+                <a routerLink="/sponsoredit/{{sponsor.id}}">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                 </a>
                 <a>

@@ -60,6 +60,7 @@ namespace WebApi
         {
             services.AddTransient<IEventService, EventService>();
             services.AddTransient<IMemberService, MemberService>();
+            services.AddTransient<IMeetupGroupService, MeetupGroupService>();
             services.AddTransient<ISponsorService, SponsorService>();
         }
 

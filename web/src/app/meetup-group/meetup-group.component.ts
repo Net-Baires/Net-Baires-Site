@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router }            from '@angular/router';
 
 import { MeetupGroup } from '../models/meetup-group';
 import { MeetupGroupService } from '../services/meetup-group.service';
@@ -11,7 +12,8 @@ import { MeetupGroupService } from '../services/meetup-group.service';
 export class MeetupGroupComponent {
     meetupGroups: Array<MeetupGroup>;
 
-    constructor(private meetupGroupService: MeetupGroupService) { }
+    constructor(private meetupGroupService: MeetupGroupService,
+        private router: Router) { }
 
     ngOnInit(): void {
         this.getMeetupGroups();
@@ -19,5 +21,10 @@ export class MeetupGroupComponent {
 
     getMeetupGroups(): void {
         this.meetupGroupService.get().subscribe(meetupGroups => this.meetupGroups = meetupGroups);
+    }
+    
+    add(): void {
+        let link = ['/addmeetupgroup'];
+        this.router.navigate(link);
     }
 }

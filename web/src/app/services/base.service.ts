@@ -54,13 +54,13 @@ export class BaseService<T extends IEntity> {
     //       .catch(this.handleError);
     //   }
     
-    //   create(name: string): Promise<T> {
-    //     return this.http
-    //       .post(this.url, JSON.stringify({name: name}), {headers: this.headers})
-    //       .toPromise()
-    //       .then(res => res.json().data as T)
-    //       .catch(this.handleError);
-    //   }
+      create(entity: T): Promise<T> {
+        return this.authHttp
+          .post(this.url, JSON.stringify({name: name}), {headers: this.headers})
+          .toPromise()
+          .then(res => res.json().data as T)
+          .catch(this.handleError);
+      }
     
       update(entity: T): Promise<T> {
         const url = `${this.url}/${entity.id}`;

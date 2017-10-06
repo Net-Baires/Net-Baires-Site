@@ -9,7 +9,7 @@ import { MeetupGroup } from '../models/meetup-group';
 
 @Injectable()
 export class MeetupGroupService extends BaseService<MeetupGroup> {
-    private sponsorsUrl = '/api/meetupgroups';  // URL to web api
+    private sponsorsUrl = '/api/meetup-groups';  // URL to web api
 
   constructor(http: Http, authHttp: AuthHttp) { 
       super(http, authHttp); 

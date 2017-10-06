@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router }            from '@angular/router';
 
 import { Member } from '../models/member';
 import { MemberService } from '../services/member.service';
@@ -11,7 +12,8 @@ import { MemberService } from '../services/member.service';
 export class MemberComponent {
     members: Array<Member>;
 
-    constructor(private memberService: MemberService) { }
+    constructor(private memberService: MemberService,
+        private router: Router) { }
 
     ngOnInit(): void {
         this.getMembers();
@@ -19,5 +21,10 @@ export class MemberComponent {
 
     getMembers(): void {
         this.memberService.get().subscribe(members => this.members = members);
+    }
+    
+    add(): void {
+        let link = ['/addmember'];
+        this.router.navigate(link);
     }
 }

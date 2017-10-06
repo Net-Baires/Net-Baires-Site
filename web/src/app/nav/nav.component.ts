@@ -9,8 +9,6 @@ import { Config } from '../config';
   styleUrls: [ './nav.component.css' ]
 })
 export class NavComponent {
-  slack = Config.JOIN_SLACK_URL;
-  meetup = Config.MEETUP_URL;
 
   constructor(public auth: AuthService){
     auth.handleAuthentication();

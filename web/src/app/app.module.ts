@@ -24,11 +24,21 @@ import { CalendarHeaderComponent } from './calendar/calendar-header.component';
 
 import { MemberComponent }   from './member/member.component';
 import { MemberDetailComponent }   from './member/member-detail.component';
+import { MemberAddComponent }   from './member/member-add.component';
 import { MemberEditComponent }   from './member/member-edit.component';
+import { MeetupGroupComponent }   from './meetup-group/meetup-group.component';
+import { MeetupGroupDetailComponent }   from './meetup-group/meetup-group-detail.component';
+import { MeetupGroupAddComponent }   from './meetup-group/meetup-group-add.component';
+import { MeetupGroupEditComponent }   from './meetup-group/meetup-group-edit.component';
+import { SponsorListComponent }   from './sponsor/sponsor-list.component';
+import { SponsorDetailComponent }   from './sponsor/sponsor-detail.component';
+import { SponsorAddComponent }   from './sponsor/sponsor-add.component';
+import { SponsorEditComponent }   from './sponsor/sponsor-edit.component';
 
 import { SponsorService } from './services/sponsor.service';
 import { MemberService } from './services/member.service';
 import { EventService } from './services/event.service';
+import { MeetupGroupService } from './services/meetup-group.service';
 
 import { AuthService } from './auth/auth.service';
 import { ProfileComponent } from './profile/profile.component';
@@ -59,7 +69,16 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     CallbackComponent,
     MemberComponent,
     MemberDetailComponent,
-    MemberEditComponent
+    MemberAddComponent,
+    MemberEditComponent,
+    MeetupGroupComponent,
+    MeetupGroupDetailComponent,
+    MeetupGroupAddComponent,
+    MeetupGroupEditComponent,
+    SponsorListComponent,
+    SponsorDetailComponent,
+    SponsorAddComponent,
+    SponsorEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,6 +102,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     },
     AuthGuardService,
     ScopeGuardService,
+    MeetupGroupService,
   ],
   bootstrap: [AppComponent]
 })

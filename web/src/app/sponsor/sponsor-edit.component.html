@@ -1,0 +1,19 @@
+<h2>Edit Sponsor</h2>
+
+<form *ngIf="sponsor">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" placeholder="Enter name" value="{{sponsor.name}}">
+    </div>
+    <div class="form-group">
+        <label for="photoURL">Photo</label>
+        <input type="text" class="form-control" id="photoURL" placeholder="Enter photo URL" value="{{sponsor.photoURL}}">
+    </div>
+    <div class="form-group">
+        <label for="linkedIn">URL</label>
+        <input type="text" class="form-control" id="linkedIn" placeholder="Enter URL" value="{{sponsor.url}}">
+    </div>
+</form>
+
+<button type="button" (click)="save()" class="btn btn-primary">Save</button>
+<button type="button" (click)="goBack()" class="btn btn-primary">Back</button>

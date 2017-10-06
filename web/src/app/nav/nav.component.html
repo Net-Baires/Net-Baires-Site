@@ -14,12 +14,6 @@
               <li class="nav-item">
                 <a class="nav-link" routerLink="/calendar" routerLinkActive="active">CALENDAR</a>
               </li>
-              <li class="nav-item">
-                <a target="_blank" class="nav-link" href="{{meetup}}">MEETUP</a>
-              </li>
-              <li class="nav-item">
-                <a target="_blank" class="nav-link" href="{{slack}}">SUMATE AL SLACK</a>
-              </li>
               <li class="nav-item" *ngIf="!auth.isAuthenticated()">
                 <a class="nav-link" (click)="auth.login()">LOG IN</a>
               </li>
@@ -29,7 +23,7 @@
                 </a>
                 <div class="dropdown-menu"[ngClass]="{ 'show': isDropdownIn }" (click)="toggleDropdownState()" aria-labelledby="navbarDropdownMenuLink">
                   <a class="dropdown-item" routerLink="/profile">PROFILE</a>
-                  <a class="dropdown-item" routerLink="/member">ADMIN</a>
+                  <a class="dropdown-item" routerLink="/members">ADMIN</a>
                   <a class="dropdown-item" (click)="auth.logout()">LOG OUT</a>
                 </div>
               </li>

@@ -1,0 +1,23 @@
+<h2>Add Members</h2>
+
+<form *ngIf="member">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" placeholder="Enter name" value="{{member.name}}">
+    </div>
+    <div class="form-group">
+        <label for="twitter">Twitter</label>
+        <input type="text" class="form-control" id="twitter" placeholder="Enter twitter url" value="{{member.twitter}}">
+    </div>
+    <div class="form-group">
+        <label for="linkedIn">LinkedIn</label>
+        <input type="text" class="form-control" id="linkedIn" placeholder="Enter linkedIn URL" value="{{member.linkedIn}}">
+    </div>
+    <div class="form-group">
+        <label for="photoURL">Photo</label>
+        <input type="text" class="form-control" id="photoURL" placeholder="Enter photo URL" value="{{member.photoURL}}">
+    </div>
+</form>
+
+<button type="button" (click)="save()" class="btn btn-primary">Save</button>
+<button type="button" (click)="goBack()" class="btn btn-primary">Back</button>
