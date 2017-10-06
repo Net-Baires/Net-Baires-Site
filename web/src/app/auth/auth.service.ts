@@ -50,11 +50,11 @@ export class AuthService {
     // Set the time that the access token will expire at
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
     const scopes = authResult.scope || this.requestedScopes || '';
-
+    console.log(authResult);
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
-    localStorage.setItem('scopes', JSON.stringify(scopes));
+    localStorage.setItem('scopes', authResult.idTokenPayload["https://example.com/roles"]);
   }
 
   public logout(): void {
@@ -62,6 +62,7 @@ export class AuthService {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
+    localStorage.removeItem('scopes');
     // Go back to the home route
     this.router.navigate(['/']);
   }
@@ -89,7 +90,7 @@ export class AuthService {
   }
 
   public userHasScopes(scopes: Array<string>): boolean {
-    const grantedScopes = JSON.parse(localStorage.getItem('scopes')).split(' ');
+    const grantedScopes = localStorage.getItem('scopes');
     return scopes.every(scope => grantedScopes.includes(scope));
   }
 }

@@ -62,14 +62,14 @@ export class BaseService<T extends IEntity> {
     //       .catch(this.handleError);
     //   }
     
-    //   update(entity: T): Promise<T> {
-    //     const url = `${this.url}/${entity.id}`;
-    //     return this.http
-    //       .put(url, JSON.stringify(entity), {headers: this.headers})
-    //       .toPromise()
-    //       .then(() => entity)
-    //       .catch(this.handleError);
-    //   }
+      update(entity: T): Promise<T> {
+        const url = `${this.url}/${entity.id}`;
+        return this.authHttp
+          .put(url, JSON.stringify(entity), {headers: this.headers})
+          .toPromise()
+          .then(() => entity)
+          .catch(this.handleError);
+      }
 
     protected handleError(error: any): Promise<any> {
         console.error('An error occurred', error); // for demo purposes only

@@ -5,15 +5,9 @@ interface AuthConfig {
     callbackURL: string;
   }
   
-//   export const AUTH_CONFIG: AuthConfig = {
-//     clientID: '{CLIENT_ID}',
-//     domain: '{DOMAIN}',
-//     callbackURL: 'http://localhost:4200/callback'
-//   };
-
   export const AUTH_CONFIG: AuthConfig = {
-    clientID: 'kcnHFFMICLjlPIQ6L2m3rHH21xaP8w0g',
-    domain: 'teban3010.auth0.com',
-    apiUrl: 'http://api.net-baires.com',
+    clientID: '{CLIENT_ID}',
+    domain: '{DOMAIN}',
+    apiUrl: 'http://localhost:3000',
     callbackURL: 'http://localhost:4200/callback'
   };

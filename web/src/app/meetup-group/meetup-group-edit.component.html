@@ -1,0 +1,27 @@
+<h2>Edit Meetup Group</h2>
+
+<form *ngIf="meetupGroup">
+        <div class="form-group">
+            <label for="groupId">Group Id</label>
+            <input type="text" class="form-control" id="groupId" placeholder="Enter Group Id" value="{{meetupGroup.groupId}}">
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter name" value="{{meetupGroup.name}}">
+        </div>
+        <div class="form-group">
+            <label for="urlName">Url Name</label>
+            <input type="text" class="form-control" id="urlName" placeholder="Enter Url Name" value="{{meetupGroup.urlName}}">
+        </div>
+        <div class="form-group">
+            <label for="photoURL">Photo</label>
+            <input type="text" class="form-control" id="photoURL" placeholder="Enter photo URL" value="{{meetupGroup.photoURL}}">
+        </div>
+        <div class="form-group">
+            <label for="color">Color</label>
+            <input type="text" class="form-control" id="color" placeholder="Enter color" value="{{meetupGroup.color}}">
+        </div>
+    </form>
+
+<button type="button" (click)="save()" class="btn btn-primary">Save</button>
+<button type="button" (click)="goBack()" class="btn btn-primary">Back</button>

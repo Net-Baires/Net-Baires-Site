@@ -1,0 +1,39 @@
+<h2>meetupGroups</h2>
+<div class="table-responsive">
+<table class="table table-sm">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>GroupId</th>
+        <th>Name</th>
+        <th>UrlName</th>
+        <th>PhotoURL</th>
+        <th>Color</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let meetupGroup of meetupGroups">
+        <th scope="row">{{meetupGroup.id}}</th>
+        <td>{{meetupGroup.groupId}}</td>
+        <td>{{meetupGroup.name}}</td>
+        <td>{{meetupGroup.urlName}}</td>
+        <td>{{meetupGroup.photoURL}}</td>
+        <td>{{meetupGroup.color}}</td>
+        <td>
+            <div class="float-right">
+                <a routerLink="/meetupGroupdetail/{{meetupGroup.id}}">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                </a>
+                <a routerLink="/meetupGroupedit/{{meetupGroup.id}}">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                </a>
+                <a>
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+            </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -11,6 +11,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
+import { PublicComponent }   from './layouts/public.component';
+import { SecureComponent }   from './layouts/secure.component';
+
 import { NavComponent } from './nav/nav.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
@@ -19,6 +22,10 @@ import { SponsorComponent } from './sponsor/sponsor.component';
 import { CalendarComponent }   from './calendar/calendar.component';
 import { CalendarHeaderComponent } from './calendar/calendar-header.component';
 
+import { MemberComponent }   from './member/member.component';
+import { MemberDetailComponent }   from './member/member-detail.component';
+import { MemberEditComponent }   from './member/member-edit.component';
+
 import { SponsorService } from './services/sponsor.service';
 import { MemberService } from './services/member.service';
 import { EventService } from './services/event.service';
@@ -26,6 +33,9 @@ import { EventService } from './services/event.service';
 import { AuthService } from './auth/auth.service';
 import { ProfileComponent } from './profile/profile.component';
 import { CallbackComponent } from './callback/callback.component';
+
+import { AuthGuardService } from './auth/auth-guard.service';
+import { ScopeGuardService } from './auth/scope-guard.service';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig({
@@ -36,6 +46,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
 @NgModule({
   declarations: [
     AppComponent,
+    PublicComponent,
+    SecureComponent,
     NavComponent,
     FooterComponent,
     HomeComponent,
@@ -44,7 +56,10 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     CalendarComponent,
     CalendarHeaderComponent,
     ProfileComponent,
-    CallbackComponent
+    CallbackComponent,
+    MemberComponent,
+    MemberDetailComponent,
+    MemberEditComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +80,9 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,
       deps: [Http, RequestOptions]
-    }
+    },
+    AuthGuardService,
+    ScopeGuardService,
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,31 @@
+<h2>Members</h2>
+<div class="table-responsive">
+<table class="table table-sm">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let member of members">
+        <th scope="row">{{member.id}}</th>
+        <td>{{member.name}}</td>
+        <td>
+            <div class="float-right">
+                <a routerLink="/memberdetail/{{member.id}}">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                </a>
+                <a routerLink="/memberedit/{{member.id}}">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                </a>
+                <a>
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+            </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
