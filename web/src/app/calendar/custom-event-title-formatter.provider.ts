@@ -20,8 +20,12 @@ export class CustomEventTitleFormatter extends CalendarEventTitleFormatter {
     return this.sanitizer.bypassSecurityTrustHtml(
         '<style>.event-link, .event-link:hover{ color: white !important; } </style>'
         + '<a class="event-link" href="' + event.meta.event.link + '" target="_blank" >'
-        //+ '<img class="img-responsive" src="' + event.meta.event.group.photoURL + '" alt="' + event.meta.event.group.name + '" style="max-height:30px"/>'
+        + '<span>'
+        + '<img class="img-responsive" src="' + event.meta.event.group.photoURL + '" style="max-height:20px;padding-right: 10px;"/>'
+        + event.meta.event.group.name
+        + ' - '
         + event.title
+        + '</span>'
         + '</a>')
   }
 

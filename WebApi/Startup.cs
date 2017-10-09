@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Models;
+using Newtonsoft.Json;
 using Service;
 using Swashbuckle.AspNetCore.Swagger;
 using WebApi.Filters;
@@ -47,7 +48,10 @@ namespace WebApi
 
             services.AddOptions();
             services.AddCors();
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
         }
 
         private void ConfigureDataBase(IServiceCollection services)
