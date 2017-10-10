@@ -1,4 +1,5 @@
 import { IEntity } from '../models/ientity';
+import { MemberType } from '../models/member-type';
 
 export class Member implements IEntity {
     id: number;
@@ -6,5 +7,5 @@ export class Member implements IEntity {
     twitter: string;
     linkedIn: string;
     photoURL: string;
-    type: number;
+    type: MemberType;
 }

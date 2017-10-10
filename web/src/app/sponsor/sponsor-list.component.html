@@ -1,8 +1,8 @@
 <div class="container">
     <h2 class="float-left">Sponsors</h2>
-    <button type="button" (click)="add()" class="btn btn-primary float-right">
+    <a [routerLink]="['/sponsorform']" class="btn btn-primary float-right">
         <i class="fa fa-plus-circle" aria-hidden="true"></i> Add
-    </button>
+    </a>
 </div>
 <div class="table-responsive">
 <table class="table table-sm">
@@ -19,14 +19,8 @@
         <td>{{sponsor.name}}</td>
         <td>
             <div class="float-right">
-                <a routerLink="/sponsordetail/{{sponsor.id}}">
+                <a routerLink="/sponsorform/{{sponsor.id}}">
                     <i class="fa fa-info-circle" aria-hidden="true"></i>
-                </a>
-                <a routerLink="/sponsoredit/{{sponsor.id}}">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                </a>
-                <a>
-                    <i class="fa fa-trash" aria-hidden="true"></i>
                 </a>
             </div>
         </td>

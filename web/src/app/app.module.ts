@@ -23,17 +23,11 @@ import { CalendarComponent }   from './calendar/calendar.component';
 import { CalendarHeaderComponent } from './calendar/calendar-header.component';
 
 import { MemberComponent }   from './member/member.component';
-import { MemberDetailComponent }   from './member/member-detail.component';
-import { MemberAddComponent }   from './member/member-add.component';
-import { MemberEditComponent }   from './member/member-edit.component';
+import { MemberFormComponent }   from './member/member-form.component';
 import { MeetupGroupComponent }   from './meetup-group/meetup-group.component';
-import { MeetupGroupDetailComponent }   from './meetup-group/meetup-group-detail.component';
-import { MeetupGroupAddComponent }   from './meetup-group/meetup-group-add.component';
-import { MeetupGroupEditComponent }   from './meetup-group/meetup-group-edit.component';
+import { MeetupGroupFormComponent }   from './meetup-group/meetup-group-form.component';
 import { SponsorListComponent }   from './sponsor/sponsor-list.component';
-import { SponsorDetailComponent }   from './sponsor/sponsor-detail.component';
-import { SponsorAddComponent }   from './sponsor/sponsor-add.component';
-import { SponsorEditComponent }   from './sponsor/sponsor-edit.component';
+import { SponsorFormComponent }   from './sponsor/sponsor-form.component';
 
 import { SponsorService } from './services/sponsor.service';
 import { MemberService } from './services/member.service';
@@ -68,17 +62,11 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     ProfileComponent,
     CallbackComponent,
     MemberComponent,
-    MemberDetailComponent,
-    MemberAddComponent,
-    MemberEditComponent,
+    MemberFormComponent,
     MeetupGroupComponent,
-    MeetupGroupDetailComponent,
-    MeetupGroupAddComponent,
-    MeetupGroupEditComponent,
+    MeetupGroupFormComponent,
     SponsorListComponent,
-    SponsorDetailComponent,
-    SponsorAddComponent,
-    SponsorEditComponent,
+    SponsorFormComponent,
   ],
   imports: [
     BrowserModule,

@@ -24,7 +24,7 @@ export class MemberComponent {
     }
     
     add(): void {
-        let link = ['/addmember'];
+        let link = ['/memberform'];
         this.router.navigate(link);
     }
 }
