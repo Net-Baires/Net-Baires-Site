@@ -67,7 +67,6 @@ export class CalendarComponent implements OnInit {
 
     var filter = 'include=Group&filter[Date]=gt:'+ minDate.toDateString() +'&filter[Date]=le:' + maxDate.toDateString();
     this.events$ = this.eventService.getFilter(filter).map( results  => {
-      console.log(results);
       return results.map((event: Event) => {
         return {
           title: event.title,

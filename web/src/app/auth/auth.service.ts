@@ -31,12 +31,8 @@ export class AuthService {
         this.setSession(authResult);
         if(this.userHasScopes(['admin'])){
           this.router.navigate(['/']);
-          console.log('admin');
-          console.log(this.auth0.requestedScopes);
         } else {
           this.router.navigate(['/']);
-          console.log('not admin');
-          console.log(this.auth0.requestedScopes);
         }
       } else if (err) {
         this.router.navigate(['/']);
@@ -50,11 +46,11 @@ export class AuthService {
     // Set the time that the access token will expire at
     const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
     const scopes = authResult.scope || this.requestedScopes || '';
-    console.log(authResult);
+    
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
-    localStorage.setItem('scopes', authResult.idTokenPayload["https://example.com/roles"]);
+    localStorage.setItem('scopes', authResult.idTokenPayload["roles"]);
   }
 
   public logout(): void {

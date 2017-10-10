@@ -84,7 +84,7 @@ namespace WebApi
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("admin", policy => policy.Requirements.Add(new HasScopeRequirement("admin", domain)));
+                options.AddPolicy("admin", policy => policy.RequireClaim("roles", "admin"));
             });
         }
 

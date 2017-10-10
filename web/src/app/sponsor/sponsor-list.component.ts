@@ -20,7 +20,7 @@ export class SponsorListComponent {
     }
 
     getSponsors(): void {
-        this.sponsorService.get().subscribe(sponsors => { console.log(sponsors); this.sponsors = sponsors;});
+        this.sponsorService.get().subscribe(sponsors => this.sponsors = sponsors);
     }
 
     add(): void {
