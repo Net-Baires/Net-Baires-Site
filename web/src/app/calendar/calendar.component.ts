@@ -18,13 +18,15 @@ import { Observable } from 'rxjs/Observable';
 
 import { CustomEventTitleFormatter } from './custom-event-title-formatter.provider';
 
+import { MeetupGroup } from '../models/meetup-group'
 import { Event } from '../models/event'
 import { EventService } from '../services/event.service'
 
 @Component({
   selector: 'cl-calendar',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: 'calendar.component.html',
+  templateUrl: './calendar.component.html',
+  styleUrls: [ './calendar.component.css' ],
   providers: [{
     provide: CalendarEventTitleFormatter,
     useClass: CustomEventTitleFormatter
@@ -40,6 +42,7 @@ export class CalendarComponent implements OnInit {
   events: CalendarEvent<{event: Event}>[];
   events$: Observable<Array<CalendarEvent<{ event: Event }>>>;
   activeDayIsOpen: boolean = false;
+  groups: Array<MeetupGroup>;
 
   constructor(private http: Http, private eventService: EventService) { }
 
@@ -67,17 +70,28 @@ export class CalendarComponent implements OnInit {
 
     var filter = 'include=Group&filter[Date]=gt:'+ minDate.toDateString() +'&filter[Date]=le:' + maxDate.toDateString();
     this.events$ = this.eventService.getFilter(filter).map( results  => {
+      this.getGroups(results);
       return results.map((event: Event) => {
         return {
           title: event.title,
           start: new Date(event.dateTicks),
-          color: this.getColor(event.color),
+          color: {
+            primary: event.color,
+            secondary: event.color
+          },
           meta: {
             event
           }
         };
       });
     });
+  }
+
+  getGroups(events:Event[]){
+    var groups = events.map((event:Event) => {
+      return event.group;
+    });
+    this.groups = Array.from(new Set(groups));
   }
 
   dayClicked({
