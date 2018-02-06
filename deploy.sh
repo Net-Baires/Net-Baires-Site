@@ -116,7 +116,7 @@ selectNodeVersion
 # 2. Install npm packages
 if [ -e "$DEPLOYMENT_SOURCE/Web/package.json" ]; then
   cd "$DEPLOYMENT_SOURCE/web"
-  eval $NPM_CMD install --only=dev
+  eval $NPM_CMD install
   eval $NPM_CMD run build
   exitWithMessageOnError "npm failed"
   cd - > /dev/null
